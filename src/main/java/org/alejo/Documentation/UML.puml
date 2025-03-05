@@ -1,0 +1,99 @@
+@startuml
+
+' Clase Abstracta Inmueble
+abstract class Inmueble {
+    + id_inmobiliario: String
+    + area: Float
+    + direccion: String
+    + valor_compra: Float
+    + estrato: Int
+    + propietario: String
+    + calcular_impuesto_predial(): Float
+}
+
+' Subclases de Inmueble
+class Vivienda {
+    + num_habitaciones: Int
+    + num_baños: Int
+}
+
+class Local {
+    + tipo_local: String
+    + calcular_valor_arriendo(): Float
+}
+
+' Interfaz Tipo Vivienda
+interface ITipoVivienda {
+    + obtener_tipo(): String
+}
+
+' Vivienda tiene una relación de asociación con ITipoVivienda
+Vivienda -- ITipoVivienda
+
+' Casa y Apartamento implementan ITipoVivienda
+class Casa implements ITipoVivienda {
+}
+
+class Apartamento implements ITipoVivienda {
+    + calcular_administracion(): Float
+}
+
+' Interfaz Tipo Casa
+interface ITipoCasa {
+    + obtener_tipo(): String
+}
+
+' Casa tiene una relación de asociación con ITipoCasa
+Casa -- ITipoCasa
+
+' Casa Rural y Casa Urbana implementan ITipoCasa
+class CasaRural implements ITipoCasa {
+    + distancia_cabecera_municipal: Float
+    + altitud_sobre_nivel_mar: Float
+    + obtener_ubicacion(): String
+}
+
+class CasaUrbana implements ITipoCasa {
+    + pisos: Int
+    + en_conjunto_cerrado: Boolean
+    + calcular_administracion(): Float
+}
+
+' Interfaz Tipo Apartamento
+interface ITipoApartamento {
+    + obtener_tipo(): String
+}
+
+' Apartamento tiene una relación de asociación con ITipoApartamento
+Apartamento -- ITipoApartamento
+
+' Apartamento Familiar y ApartaEstudio implementan ITipoApartamento
+class ApartamentoFamiliar implements ITipoApartamento {
+    + tiene_administracion: Boolean
+}
+
+class ApartaEstudio implements ITipoApartamento {
+}
+
+' Interfaz Tipo Local
+interface ITipoLocal {
+    + obtener_tipo(): String
+}
+
+' Local tiene una relación de asociación con ITipoLocal
+Local -- ITipoLocal
+
+' Oficina y LocalComercial implementan ITipoLocal
+class Oficina implements ITipoLocal {
+
+}
+
+class LocalComercial implements ITipoLocal {
+    + es_interno: Boolean
+}
+
+' Relaciones de herencia entre clases abstractas
+Inmueble <|-- Vivienda
+Inmueble <|-- Local
+
+@enduml
